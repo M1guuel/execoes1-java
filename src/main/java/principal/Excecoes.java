@@ -37,16 +37,15 @@ public class Excecoes {
             checkIn = sdf.parse(sc.next());
             System.out.print("Data de Check-out (dd/MM/yyyy): ");
             sdf.parse(sc.next());
-            Date now = new Date();
-            if (checkIn.before(now) || checkOut.before(now)) {
-                System.out.println("ERRO: AS DATAS DE RESERVAS TEM QUE SER POSTERIORES A ATUAL! ");
-            } else if (!checkOut.after(checkIn)) {
-                System.out.println("A data de check-in não pode ser posterio a de check-out ");
+
+            String error = reserva.updateDates(checkIn, checkOut);
+            if (error != null) {
+                System.out.println("Erro na Reserva: " + error);
             } else {
-                reserva.updateDates(checkIn, checkOut);
                 System.out.println("Resevar:" + reserva.toString());
             }
+
+            sc.close();
         }
-        sc.close();
     }
 }

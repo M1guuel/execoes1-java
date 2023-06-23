@@ -45,9 +45,16 @@ public class Reserva {
         long diff = checkOut.getTime() - checkIn.getTime();
         return TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
     }
-    public void updateDates(Date checkIn,Date checkOut){
+    public String updateDates(Date checkIn,Date checkOut){
+        Date now = new Date();
+            if (checkIn.before(now) || checkOut.before(now)) {
+               return "ERRO: AS DATAS DE RESERVAS TEM QUE SER POSTERIORES A ATUAL! ";
+            } if (!checkOut.after(checkIn)) {
+               return "A data de check-in não pode ser posterio a de check-out ";
+            }
         this.checkIn=checkIn;
         this.checkOut=checkOut;
+        return null;
     }
 
     @Override
